@@ -1,0 +1,69 @@
+//Run this code here: https://www.jdoodle.com/online-java-compiler
+
+import java.util.Scanner;
+public class MissileDamageCalculator {
+  public static void main(String args[]) {
+    //Variable Declaration
+    double missileDamage, missileSigRadius, missileExpVelocity; 
+    double targetSigRadius, targetVelocity;
+    double sigDamage, velocityDamage;
+    double applicationCoefficient;
+    double appliedDamage;
+    
+    //Create Scanner Object
+    Scanner keyboard = new Scanner(System.in);
+    
+    //Loop
+    int repeat = 1;
+    while (repeat == 1){
+    
+    //User Input Missile Characteristics
+    System.out.println("Please enter Missle DPS: ");
+    missileDamage = keyboard.nextDouble();
+    System.out.println("Please enter Missile Explosion Radius: ");
+    missileSigRadius = keyboard.nextDouble();
+    System.out.println("Please enter Missile Explosion Velocity: ");
+    missileExpVelocity = keyboard.nextDouble();
+    
+    //User Input Target Characteristics
+    System.out.println("Please enter the Target Signature Radius: ");
+    targetSigRadius = keyboard.nextDouble();
+    System.out.println("Please enter the Target Velocity: ");
+    targetVelocity = keyboard.nextDouble();
+
+    //Calculations
+    sigDamage = missileSigRadius / targetSigRadius;
+    velocityDamage = (targetSigRadius * missileExpVelocity) / (missileSigRadius * targetVelocity);
+    
+    if (sigDamage < velocityDamage){
+        if (sigDamage <= 1){
+            applicationCoefficient = sigDamage;
+            appliedDamage = missileDamage * applicationCoefficient;
+            System.out.println("Your applied DPS is: " + appliedDamage);
+        }
+    }
+    else if (velocityDamage < sigDamage){
+        if (velocityDamage < 1){
+            applicationCoefficient = velocityDamage;
+            appliedDamage = missileDamage * applicationCoefficient;
+            System.out.println("Your applied DPS is: " + appliedDamage);
+        }
+    }
+    else{
+        applicationCoefficient = 1;
+        appliedDamage = missileDamage * applicationCoefficient;
+        System.out.println("Your applied DPS is: " + appliedDamage);
+    }
+    keyboard.nextLine();
+    System.out.println("Would you like to run this program again? y/n");
+    String input = keyboard.nextLine();
+    input = input.toUpperCase();
+    char inpt = input.charAt(0);
+    if (inpt == 'Y'){
+        repeat = 1;
+    }
+    else repeat = 0;
+    }
+    
+  }
+}
